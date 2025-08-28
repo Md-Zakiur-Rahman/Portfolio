@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Md Zakiur Rahman - Resume</title>
+    <!-- Tailwind CSS CDN for modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f3f4f6; /* Light mode background */
+            --switch-width: 56px;
+            --switch-height: 28px;
+            --switch-round: 28px;
+            --switch-padding-x: 4px;
+            --switch-bg: linear-gradient(to bottom, #73bbff, #a2d1fd);
+            --switch-dark-bg: linear-gradient(to top, #2b3347, #181d27);
+            --border-width: 2px;
+            --border-gradient: linear-gradient(to bottom, #a2d1fd, #cde7ff);
+            --border-dark-gradient: linear-gradient(to bottom, #000000, #6c7384);
+            --sunmoon-size: 20px;
+            --transition: all 0.5s ease;
+            --glow-light: rgba(147, 197, 253, 0.4);
+            --glow-dark: rgba(126, 87, 194, 0.4);
+        }
+
+        /* Base styles from the original code */
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.5s ease;
+            position: relative;
+            overflow-x: hidden;
+            background-color: var(--bg-color);
+            color: #333; /* Light mode text */
+            box-shadow: 0 0 0 transparent; /* Initial box shadow */
+            transition: box-shadow 0.5s ease;
+        }
+
+        body.dark-mode {
+            --bg-color: #121212; /* Dark mode background */
+            color: #e0e0e0; /* Dark mode text */
+        }
+
+        /* Video overlay for dark mode to improve readability */
+        body.dark-mode::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay at 20% opacity */
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        /* Glow effect on the body */
+        body.glow-light-mode {
+            box-shadow: 0 0 60px var(--glow-light);
+        }
+        body.glow-dark-mode {
+            box-shadow: 0 0 60px var(--glow-dark);
+        }
+
+        /* Dark mode specific color overrides */
+        body.dark-mode .text-emerald-600 { color: #6200ee; }
+        body:not(.dark-mode) .text-emerald-600 { color: #047857; }
+        body:not(.dark-mode) .text-gray-900 { color: #1f2937; }
+        body.dark-mode .text-gray-900 { color: #e0e0e0; }
+        body:not(.dark-mode) .text-gray-800 { color: #1f2937; }
+        body.dark-mode .text-gray-800 { color: #e0e0e0; }
+        body:not(.dark-mode) .text-gray-700 { color: #374151; }
+        body.dark-mode .text-gray-700 { color: #e0e0e0; }
+        body:not(.dark-mode) .text-gray-600 { color: #4b5563; }
+        body.dark-mode .text-gray-600 { color: #9ca3af; }
+        body.dark-mode .border-emerald-400 { border-color: #9333ea; }
+
+        /* Liquid glass effect on cards */
+        .card {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.15); /* Adjusted translucency */
+            border: 1px solid #e5e7eb;
+            transition: transform 0.3s ease-in-out, background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+        }
+
+        body.dark-mode .card {
+            background-color: rgba(40, 40, 40, 0.15); /* Adjusted translucency */
+            border: 1px solid #333;
+        }
+        
+        /* The modal content itself should now be translucent for the liquid glass effect only in dark mode */
+        .modal-content.card {
+            backdrop-filter: none;
+            background-color: #ffffff; /* Solid white background for light mode */
+            border: 1px solid #e5e7eb;
+        }
+
+        body.dark-mode .modal-content.card {
+            backdrop-filter: blur(12px); /* Increased blur for a better effect with translucent background */
+            background-color: rgba(40, 40, 40, 0.08); /* 8% translucency for dark mode */
+            border: 1px solid #333;
+        }
+        
+        /* Styles for the form inputs inside the modal for readability */
+        .modal-content.card input[type="text"], 
+        .modal-content.card input[type="email"], 
+        .modal-content.card input[type="tel"] {
+            background-color: rgba(255, 255, 255, 0.9); /* Opaque background for light mode */
+            color: #1f2937; /* Dark text for light mode */
+        }
+
+        body.dark-mode .modal-content.card input[type="text"], 
+        body.dark-mode .modal-content.card input[type="email"], 
+        body.dark-mode .modal-content.card input[type="tel"] {
+            background-color: rgba(40, 40, 40, 0.9); /* Opaque background for dark mode */
+            color: #e0e0e0; /* Light text for dark mode */
+        }
+
+        /* Hover effect for all cards */
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark-mode .card:hover {
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.05);
+        }
+
+        /* Bouncy animation on elements */
+        .bouncy-on-load {
+            animation: bounce 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55) both;
+        }
+        
+        .bouncy-on-load-2 {
+            animation: bounce 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55) both;
+            animation-delay: 0.2s;
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        /* Modal bouncy animation */
+        .modal-bouncy {
+            animation: modal-bounce 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) both;
+        }
+        
+        @keyframes modal-bounce {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        /* Modal specific styles */
+        .modal-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 50;
+        }
+        
+        .modal-content {
+            padding: 2rem;
+            max-width: 90%;
+            max-height: 80%;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        /* Project card styles */
+        .project-card {
+            display: block;
+            background-color: #f9fafb; /* Light gray for light mode */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        body.dark-mode .project-card {
+            background-color: #1f2937; /* Dark gray for dark mode */
+            border-color: #333;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        body.dark-mode .project-card:hover {
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.05);
+        }
+
+        .project-card h3 {
+            color: #1f2937; /* Dark text in light mode */
+        }
+        
+        .project-card p {
+            color: #4b5563; /* Gray text in light mode */
+        }
+        
+        .project-card a {
+            color: #3b82f6; /* Blue link in light mode */
+        }
+        
+        body.dark-mode .project-card h3,
+        body.dark-mode .project-card p,
+        body.dark-mode .project-card a {
+            color: #ffffff; /* White text for dark mode */
+        }
+
+        /* Center the image within the header */
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        /* New toggle button styles from the provided code */
+        .switch {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: var(--switch-width);
+            height: var(--switch-height);
+            border-radius: var(--switch-round);
+            cursor: pointer;
+            transition: var(--transition);
+            background: var(--switch-bg);
+        }
+
+        .switch::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: var(--switch-round);
+            opacity: 0;
+            background: var(--switch-dark-bg);
+            transition: var(--transition);
+        }
+
+        body.dark-mode .switch::before {
+            opacity: 1;
+        }
+
+        .switch .border {
+            position: absolute;
+            top: calc(var(--border-width) * -1);
+            left: calc(var(--border-width) * -1);
+            width: calc(100% + var(--border-width) * 2);
+            height: calc(100% + var(--border-width) * 2);
+            border-radius: var(--switch-round);
+            background: var(--border-gradient);
+            z-index: -1;
+            transition: var(--transition);
+        }
+
+        .switch .border::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: var(--switch-round);
+            background: var(--border-dark-gradient);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        body.dark-mode .switch .border::after {
+            opacity: 1;
+        }
+
+        .switch input {
+            display: none;
+        }
+
+        .sunmoon {
+            position: absolute;
+            width: var(--sunmoon-size);
+            height: var(--sunmoon-size);
+            border-radius: 50%;
+            transition: var(--transition);
+            left: var(--switch-padding-x);
+            z-index: 1;
+            background-color: #FFC187;
+            box-shadow: 0px 0px 11.7px 0px #FFC187, 0px 0px 20px 0px #ffc18768, -2px -2px 5px 0px #ffab5c inset;
+        }
+
+        body.dark-mode .sunmoon {
+            left: calc(100% - var(--sunmoon-size) - var(--switch-padding-x));
+            background-color: #dee5f3;
+            box-shadow: 0px 0px 51.7px 0px #dee5f3;
+        }
+
+        .darkside {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 75%;
+            height: 75%;
+            border-radius: 50%;
+            background-color: #FFC187;
+            transition: var(--transition);
+        }
+
+        body.dark-mode .darkside {
+            background-color: #565c6b;
+        }
+
+        .clouds {
+            border-radius: var(--switch-round);
+            position: relative;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .cloud {
+            position: absolute;
+            width: 60%;
+            transition: var(--transition);
+            fill: #fff;
+        }
+
+        .cloud-1 { bottom: -55%; left: 0; }
+        body:not(.dark-mode) .cloud-1 { bottom: -55%; left: 0; }
+        body.dark-mode .cloud-1 { bottom: -35%; left: -110px; }
+        
+        .cloud-2 { bottom: -45%; left: 25px; }
+        body:not(.dark-mode) .cloud-2 { bottom: -45%; left: 25px; }
+        body.dark-mode .cloud-2 { bottom: -15%; left: -110px; transition: all 0.7s ease; }
+        
+        .cloud-3 { bottom: -40%; right: 0px; }
+        body:not(.dark-mode) .cloud-3 { bottom: -40%; right: 0px; }
+        body.dark-mode .cloud-3 { bottom: -15%; right: -110px; }
+        
+        .cloud-4 { bottom: -16%; right: -25px; }
+        body:not(.dark-mode) .cloud-4 { bottom: -16%; right: -25px; }
+        body.dark-mode .cloud-4 { bottom: -5%; right: -110px; transition: all 0.7s ease; }
+        
+        .stars-svg {
+            position: absolute;
+            top: 150%;
+            left: 0;
+            transform: translateY(-50%);
+            pointer-events: none;
+            transition: var(--transition);
+            fill: #fff;
+        }
+
+        body.dark-mode .stars-svg {
+            top: 50%;
+        }
+
+        /* Particle canvases */
+        #main-bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -10;
+        }
+        
+        /* Video for dark mode */
+        #dark-mode-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -10;
+            display: none;
+        }
+        
+    </style>
+</head>
+<body class="light-mode antialiased">
+    
+    <!-- Dark Mode Video Background -->
+    <video id="dark-mode-video" autoplay muted loop playsinline class="fixed top-0 left-0 w-full h-full object-cover -z-10">
+        <source src="./video/Timeline 1.webm" type="video/webm">
+        <source src="./video/Timeline 1.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    
+    <!-- Main background canvas for particles (leaves and sakura) -->
+    <canvas id="main-bg-canvas"></canvas>
+
+    <!-- Dark Mode Toggle Button (fixed to the top-right corner) -->
+    <div class="fixed top-4 right-4 z-50">
+        <label class="switch" for="mode-checkbox">
+            <input type="checkbox" id="mode-checkbox" />
+            <div class="sunmoon">
+                <div class="darkside"></div>
+            </div>
+            <div class="border"></div>
+            <div class="clouds">
+                <!-- Converted SVGs to inline for browser compatibility -->
+                <svg class="cloud cloud-1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50 80C30 80 15 65 15 45c0-20 15-35 35-35 20 0 35 15 35 35 0 20-15 35-35 35z"/>
+                    <circle cx="30" cy="50" r="15"/>
+                    <circle cx="70" cy="50" r="15"/>
+                </svg>
+                <svg class="cloud cloud-2" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50 80C30 80 15 65 15 45c0-20 15-35 35-35 20 0 35 15 35 35 0 20-15 35-35 35z"/>
+                    <circle cx="30" cy="50" r="15"/>
+                    <circle cx="70" cy="50" r="15"/>
+                </svg>
+                <svg class="cloud cloud-3" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50 80C30 80 15 65 15 45c0-20 15-35 35-35 20 0 35 15 35 35 0 20-15 35-35 35z"/>
+                    <circle cx="30" cy="50" r="15"/>
+                    <circle cx="70" cy="50" r="15"/>
+                </svg>
+                <svg class="cloud cloud-4" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50 80C30 80 15 65 15 45c0-20 15-35 35-35 20 0 35 15 35 35 0 20-15 35-35 35z"/>
+                    <circle cx="30" cy="50" r="15"/>
+                    <circle cx="70" cy="50" r="15"/>
+                </svg>
+                <svg class="stars-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="10" cy="20" r="1"/>
+                    <circle cx="25" cy="40" r="1.5"/>
+                    <circle cx="45" cy="15" r="1"/>
+                    <circle cx="60" cy="30" r="2"/>
+                    <circle cx="85" cy="25" r="1.5"/>
+                    <circle cx="95" cy="45" r="1"/>
+                </svg>
+            </div>
+        </label>
+    </div>
+
+    <div class="container mx-auto p-4 sm:p-8 md:p-12 max-w-4xl relative z-10">
+        <!-- Header Section -->
+        <header class="card rounded-2xl p-6 sm:p-10 shadow-lg mb-8 flex flex-col items-center text-center relative overflow-hidden">
+            <div class="header-content relative z-10">
+                <!-- Fallback image URL using placehold.co -->
+                <img 
+                    src="./image/WhatsApp Image 2025-08-24 at 20.28.15_f34259ea.jpg" 
+                    alt="Md Zakiur Rahman" 
+                    class="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-black dark:border-white mb-6 shadow-md bouncy-on-load object-cover"
+                    onerror="this.onerror=null;this.src='https://placehold.co/160x160/333333/FFFFFF?text=MdZakiur';"
+                >
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-900 mb-2 bouncy-on-load">Md Zakiur Rahman</h1>
+                <p class="text-lg md:text-xl text-gray-600 bouncy-on-load-2">Ambitious and curious Computer Science and Engineering student.</p>
+                <div class="mt-4 text-center text-gray-500">
+                    <p class="text-sm">
+                        <span class="inline-block mr-2">📍 Hyderabad, Telangana</span>
+                        <span class="inline-block mr-2">📞 +91 7797585605</span>
+                        <span class="inline-block">✉️<a href="mailto:zakiurrahman540@gmail.com">zakiurrahman540@gmail.com</a></span>
+                    </p>
+                    <a href="https://www.linkedin.com/in/md-zakiur-rahman-210335299/" class="inline-block mt-2 text-blue-500 hover:underline transition-colors duration-300">
+                        🔗 LinkedIn
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- About Me Section -->
+        <section class="card rounded-2xl p-6 sm:p-8 shadow-lg mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-emerald-600">About Me</h2>
+            <p class="text-base text-gray-700 leading-relaxed">
+                Ambitious and curious Computer Science and Engineering student at Symbiosis Institute of Technology, Hyderabad. I have a strong foundation in Java and am currently exploring advanced concepts, data structures, algorithms, and ethical hacking. My passion lies at the intersection of software development and cybersecurity, with a drive to solve problems creatively and analytically. Through leadership roles in student communities and active participation in technical initiatives, I aim to build meaningful projects and grow into a well-rounded engineer.
+            </p>
+        </section>
+
+        <!-- Projects Section - Updated to directly show the two project buttons -->
+        <section class="card rounded-2xl p-6 sm:p-8 shadow-lg mb-8">
+            <h2 class="text-2xl font-bold mb-6 text-emerald-600">Projects</h2>
+            <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                <button id="technical-projects-btn" class="card p-6 rounded-xl w-full sm:w-auto hover:bg-emerald-500 hover:text-white transition duration-300">
+                    <h3 class="text-xl font-semibold mb-2">Technical Projects</h3>
+                    <p class="text-sm">View my software and coding work from GitHub.</p>
+                </button>
+                <button id="creative-projects-btn" class="card p-6 rounded-xl w-full sm:w-auto hover:bg-emerald-500 hover:text-white transition duration-300">
+                    <h3 class="text-xl font-semibold mb-2">Creative Projects</h3>
+                    <p class="text-sm">Explore my design and other creative work.</p>
+                </button>
+            </div>
+        </section>
+
+        <!-- Skills Section - Now clickable -->
+        <section class="card rounded-2xl p-6 sm:p-8 shadow-lg mb-8">
+            <h2 id="skills-title" class="text-2xl font-bold mb-4 text-emerald-600 cursor-pointer hover:underline">Skills</h2>
+        </section>
+
+        <!-- Experience Section - Now clickable -->
+        <section class="card rounded-2xl p-6 sm:p-8 shadow-lg mb-8">
+            <h2 id="experience-title" class="text-2xl font-bold mb-4 text-emerald-600 cursor-pointer hover:underline">Experience</h2>
+        </section>
+
+        <!-- Education Section -->
+        <section class="card rounded-2xl p-6 sm:p-8 shadow-lg mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-emerald-600">Education</h2>
+            <ul class="space-y-4 text-gray-700">
+                <li class="card p-4 rounded-lg border border-gray-200">
+                    <b class="text-gray-900">B.Tech in Computer Science and Engineering:</b>
+                    <span class="block text-sm">Symbiosis Institute of Technology, Hyderabad (2024 – 2028, Expected)</span>
+                </li>
+                <li class="card p-4 rounded-lg border border-gray-200">
+                    <b class="text-gray-900">ISC (Grade XII):</b>
+                    <span class="block text-sm">St. Patrick's Higher Secondary School, Asansol (2022 – 2024) | 74%</span>
+                </li>
+                <li class="card p-4 rounded-lg border border-gray-200">
+                    <b class="text-gray-900">ICSE (Grade X):</b>
+                    <span class="block text-sm">St. Vincent High and Technical School, Asansol (2011 – 2022) | 84%</span>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Achievements Section -->
+        <section class="card rounded-2xl p-6 sm:p-8 shadow-lg mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-emerald-600">Achievements</h2>
+            <ul class="list-disc list-inside space-y-2 text-gray-700 pl-4">
+                <li>Core contributor to Anveshan Fest 2025 (college tech + workshop event) – helped in planning, organizing, and execution.</li>
+                <li>Participated in multiple poetry competitions, showcasing creativity and effective expression.</li>
+                <li>Awarded Distinction in Drawing Competition during Class 7/8 for artistic skills and attention to detail.</li>
+            </ul>
+        </section>
+
+        <!-- Goals Section -->
+        <section class="card rounded-2xl p-6 sm:p-8 shadow-lg mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-emerald-600">Goals</h2>
+            <ul class="list-disc list-inside space-y-2 text-gray-700 pl-4">
+                <li>Advance expertise in Java, Data Structures, and Algorithms.</li>
+                <li>Build a strong foundation in cybersecurity and penetration testing.</li>
+                <li>Contribute to open-source projects and real-world developer communities.</li>
+                <li>Grow as a student leader by leading impactful technical events and collaborations.</li>
+                <li>Work towards a career bridging software engineering and ethical cybersecurity.</li>
+            </ul>
+        </section>
+
+        <!-- Contact Section - New clickable area for the modal -->
+        <section class="card rounded-2xl p-6 sm:p-8 shadow-lg mb-8">
+            <h2 id="contact-title" class="text-2xl font-bold mb-4 text-emerald-600 cursor-pointer hover:underline">Contact</h2>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center text-gray-500 mt-12 text-sm">
+            <p>&copy; Md Zakiur Rahman. All rights reserved.</p>
+        </footer>
+
+    </div>
+
+    <!-- Technical Projects Modal -->
+<div id="technical-projects-modal" class="modal-container hidden">
+    <div class="modal-content card rounded-2xl shadow-xl p-6 relative">
+        <button class="modal-close-btn absolute top-4 right-4 text-2xl text-gray-500 hover:text-gray-800 transition-colors duration-200">
+            &times;
+        </button>
+        <h2 class="text-2xl font-bold mb-4 text-emerald-600">Technical Projects</h2>
+        <div class="space-y-4">
+            <!-- Project 1 -->
+            <a href="https://md-zakiur-rahman.github.io/Resume/" target="_blank" class="project-card block hover:shadow-lg transition-shadow duration-300">
+                <h3 class="text-xl font-semibold">Project 1: Resume Making</h3>
+                <p class="text-base mt-1">Built a personal resume website using simple HTML.</p>
+                <span class="text-sm mt-2 block">View Project</span>
+            </a>
+            
+            <!-- Project 2 -->
+            <a href="https://md-zakiur-rahman.github.io/html-protfolio/" target="_blank" class="project-card block hover:shadow-lg transition-shadow duration-300">
+                <h3 class="text-xl font-semibold">Project 2: Page Connection</h3>
+                <p class="text-base mt-1">Created a portfolio with page linking and navigation features.</p>
+                <span class="text-sm mt-2 block">View Project</span>
+            </a>
+            
+            <!-- Project 3 -->
+            <a href="https://mdzakiurrahman020.github.io/TEDxSIU_Hyd/" target="_blank" class="project-card block hover:shadow-lg transition-shadow duration-300">
+                <h3 class="text-xl font-semibold">Project 3: TEDxSIU Clone</h3>
+                <p class="text-base mt-1">Cloned Lintree for TEDxSIU Hyderabad using HTML, CSS, JavaScript with personal customizations.</p>
+                <span class="text-sm mt-2 block">View Project</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- Creative Projects Modal (initially blank as requested) -->
+    <div id="creative-projects-modal" class="modal-container hidden">
+        <div class="modal-content card rounded-2xl shadow-xl">
+            <button class="modal-close-btn absolute top-4 right-4 text-2xl text-gray-500 hover:text-gray-800 transition-colors duration-200">
+                &times;
+            </button>
+            <h2 class="text-2xl font-bold mb-4 text-emerald-600">My Creative Projects</h2>
+            <p class="text-gray-700">This pop-up is ready for you to add your images, documents, and previews of your creative work.</p>
+        </div>
+    </div>
+
+    <!-- Skills Modal -->
+    <div id="skills-modal" class="modal-container hidden">
+        <div class="modal-content card rounded-2xl shadow-xl">
+            <button class="modal-close-btn absolute top-4 right-4 text-2xl text-gray-500 hover:text-gray-800 transition-colors duration-200">
+                &times;
+            </button>
+            <h2 class="text-2xl font-bold mb-4 text-emerald-600">My Skills</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Technical Skills</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700 pl-4">
+                        <li><b>Programming Languages:</b> Java (Intermediate – advancing), Python (Basics), C, C++</li>
+                        <li><b>Problem-Solving & Algorithms:</b> Logical thinking, data structures & algorithms (learning in-depth)</li>
+                        <li><b>Cybersecurity Enthusiast:</b> Basics of ethical hacking, cryptography, penetration testing</li>
+                        <li><b>Debugging & Code Optimization</b></li>
+                        <li><b>Creative Tech Skills:</b> Graphics Editing (Canva, Photoshop basics), Video Editing (Premiere Pro/CapCut basics)</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Soft & Creative Skills</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700 pl-4">
+                        <li><b>Leadership & Management</b></li>
+                        <li><b>Poetry & Content Writing</b> (creative storytelling, structured writing)</li>
+                        <li><b>Analytical & Critical Thinking</b></li>
+                        <li><b>Attention to Detail & Pattern Recognition</b></li>
+                        <li><b>Art & Craft</b> (visual creativity, design thinking)</li>
+                        <li><b>Team Collaboration & Communication</b></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Experience Modal -->
+    <div id="experience-modal" class="modal-container hidden">
+        <div class="modal-content card rounded-2xl shadow-xl">
+            <button class="modal-close-btn absolute top-4 right-4 text-2xl text-gray-500 hover:text-gray-800 transition-colors duration-200">
+                &times;
+            </button>
+            <h2 class="text-2xl font-bold mb-4 text-emerald-600">My Experience</h2>
+            <div class="space-y-4 text-gray-700">
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-900">Vice Chair – IEEE GRSS Student Branch Chapter</h3>
+                    <p class="text-gray-600 text-sm italic">Symbiosis Institute of Technology, Hyderabad | Jul 2025 – Present</p>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700 pl-4">
+                        <li>Coordinating student engagement under IEEE GRSS to promote research and innovation.</li>
+                        <li>Organizing technical sessions, seminars, and workshops in the field of remote sensing and geoscience.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-900">Secretary – Google Developer Student Club (GDSC)</h3>
+                    <p class="text-gray-600 text-sm italic">Symbiosis Institute of Technology, Hyderabad | Oct 2024 – Present</p>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700 pl-4">
+                        <li>Leading and managing initiatives, workshops, and hackathons to foster a developer community.</li>
+                        <li>Organizing sessions on Google technologies, AI/ML, and cloud computing.</li>
+                        <li>Handling community engagement, event planning, and technical outreach.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-900">Head of Production – TEDx</h3>
+                    <p class="text-gray-600 text-sm italic">Symbiosis Institute of Technology, Hyderabad | April 2025 – Present</p>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700 pl-4">
+                        <li>Managing stage design, visuals, and production workflow for TEDx events.</li>
+                        <li>Overseeing technical setups including AV, lighting, and event coordination.</li>
+                        <li>Ensuring smooth execution and impactful audience experience.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div id="contact-modal" class="modal-container hidden">
+        <div class="modal-content card rounded-2xl shadow-xl">
+            <button class="modal-close-btn absolute top-4 right-4 text-2xl text-gray-500 hover:text-gray-800 transition-colors duration-200">
+                &times;
+            </button>
+            <h2 class="text-2xl font-bold mb-4 text-emerald-600">Get in Touch</h2>
+            <form class="space-y-4">
+                <div>
+                    <label for="name" class="block text-gray-700 font-semibold mb-2">Name</label>
+                    <input type="text" id="name" class="w-full p-2 border border-gray-300 rounded-md" placeholder="Your Name" required>
+                </div>
+                <div>
+                    <label for="email" class="block text-gray-700 font-semibold mb-2">Email</label>
+                    <input type="email" id="email" class="w-full p-2 border border-gray-300 rounded-md" placeholder="Your Email" required>
+                </div>
+                <div>
+                    <label for="phone" class="block text-gray-700 font-semibold mb-2">Phone</label>
+                    <input type="tel" id="phone" class="w-full p-2 border border-gray-300 rounded-md" placeholder="Your Phone Number">
+                </div>
+                <button type="submit" class="w-full bg-emerald-500 text-white font-semibold py-3 px-6 rounded-full text-center hover:bg-emerald-600 transition duration-300 shadow-md">
+                    Submit
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mainCanvas = document.getElementById('main-bg-canvas');
+            const mainCtx = mainCanvas.getContext('2d');
+            const body = document.body;
+            const modeCheckbox = document.getElementById('mode-checkbox');
+            const switchLabel = document.querySelector('.switch');
+            const video = document.getElementById('dark-mode-video');
+            
+            let particles = [];
+            let mainAnimationFrameId = null;
+
+            const setupCanvas = () => {
+                mainCanvas.width = window.innerWidth;
+                mainCanvas.height = document.body.scrollHeight;
+            };
+
+            class Particle {
+                constructor(shape) {
+                    this.x = Math.random() * mainCanvas.width;
+                    this.y = Math.random() * mainCanvas.height;
+                    this.size = Math.random() * 8 + 6;
+                    this.speedY = Math.random() * 2 + 1.5;
+                    this.speedX = (Math.random() - 0.5) * 1.5;
+                    this.rotation = Math.random() * 360;
+                    this.rotationSpeed = Math.random() * 1 - 0.5;
+                    this.shape = shape;
+
+                    if (this.shape === 'sakura') {
+                        this.color = `hsl(330, ${Math.random() * 20 + 80}%, ${Math.random() * 10 + 85}%)`;
+                    } else { // leaf
+                        this.color = `hsl(${Math.random() * 20 + 100}, 50%, 40%)`;
+                    }
+                }
+
+                draw() {
+                    mainCtx.fillStyle = this.color;
+                    mainCtx.beginPath();
+                    if (this.shape === 'sakura') {
+                        mainCtx.save();
+                        mainCtx.translate(this.x, this.y);
+                        mainCtx.rotate(this.rotation * Math.PI / 180);
+                        mainCtx.moveTo(0, 0);
+                        mainCtx.bezierCurveTo(-this.size / 2, -this.size * 1.5, -this.size * 1.5, -this.size * 1.5, -this.size * 2, -this.size);
+                        mainCtx.bezierCurveTo(-this.size * 2.5, this.size * 0.5, -this.size, this.size * 1.5, 0, this.size);
+                        mainCtx.bezierCurveTo(this.size, this.size * 1.5, this.size * 2.5, this.size * 0.5, this.size * 2, -this.size);
+                        mainCtx.bezierCurveTo(this.size * 1.5, -this.size * 1.5, this.size / 2, -this.size * 1.5, 0, 0);
+                        mainCtx.closePath();
+                        mainCtx.fill();
+                        mainCtx.restore();
+                    } else { // leaf
+                        mainCtx.save();
+                        mainCtx.translate(this.x, this.y);
+                        mainCtx.rotate(this.rotation * Math.PI / 180);
+                        mainCtx.moveTo(0, 0);
+                        mainCtx.bezierCurveTo(this.size * 2, -this.size, this.size * 3, -this.size * 2, this.size * 4, 0);
+                        mainCtx.bezierCurveTo(this.size * 3, this.size * 2, this.size * 2, this.size, 0, 0);
+                        mainCtx.closePath();
+                        mainCtx.fill();
+                        mainCtx.restore();
+                    }
+                    mainCtx.fill();
+                }
+
+                update() {
+                    this.y += this.speedY;
+                    this.x += this.speedX;
+                    this.rotation += this.rotationSpeed;
+                    if (this.y > mainCanvas.height + this.size) {
+                        this.y = -this.size;
+                        this.x = Math.random() * mainCanvas.width;
+                    }
+                }
+            }
+            
+            const initParticles = () => {
+                particles = [];
+                const numParticles = 70;
+                for (let i = 0; i < numParticles; i++) {
+                    const shape = Math.random() > 0.5 ? 'sakura' : 'leaf';
+                    particles.push(new Particle(shape));
+                }
+            };
+
+            const animateMain = () => {
+                mainCtx.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+                mainAnimationFrameId = requestAnimationFrame(animateMain);
+            };
+
+            const toggleBackground = () => {
+                 if (body.classList.contains('light-mode')) {
+                    video.style.display = 'none';
+                    video.pause();
+                    setupCanvas();
+                    initParticles();
+                    mainCanvas.style.opacity = 1;
+                    if (!mainAnimationFrameId) {
+                        animateMain();
+                    }
+                } else {
+                    cancelAnimationFrame(mainAnimationFrameId);
+                    mainAnimationFrameId = null;
+                    mainCanvas.style.opacity = 0;
+                    video.style.display = 'block';
+                    video.play();
+                }
+            };
+            
+            // Dark mode toggle functionality
+            modeCheckbox.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    body.classList.remove('light-mode');
+                    body.classList.add('dark-mode');
+                } else {
+                    body.classList.remove('dark-mode');
+                    body.classList.add('light-mode');
+                }
+                toggleBackground();
+            });
+
+            // Glow effect on toggle button hover
+            switchLabel.addEventListener('mouseenter', () => {
+                if (body.classList.contains('dark-mode')) {
+                    body.classList.add('glow-dark-mode');
+                } else {
+                    body.classList.add('glow-light-mode');
+                }
+            });
+
+            switchLabel.addEventListener('mouseleave', () => {
+                body.classList.remove('glow-light-mode', 'glow-dark-mode');
+            });
+
+            // Modal functionality
+            const openModal = (modal) => {
+                modal.classList.remove('hidden');
+                setTimeout(() => {
+                    const content = modal.querySelector('.modal-content');
+                    content.classList.add('modal-bouncy');
+                }, 10);
+            };
+
+            const closeModal = (modal) => {
+                const content = modal.querySelector('.modal-content');
+                content.classList.remove('modal-bouncy');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                }, 300); // Wait for the animation to finish
+            };
+
+            document.getElementById('technical-projects-btn').addEventListener('click', () => openModal(document.getElementById('technical-projects-modal')));
+            document.getElementById('creative-projects-btn').addEventListener('click', () => openModal(document.getElementById('creative-projects-modal')));
+            document.getElementById('skills-title').addEventListener('click', () => openModal(document.getElementById('skills-modal')));
+            document.getElementById('experience-title').addEventListener('click', () => openModal(document.getElementById('experience-modal')));
+            document.getElementById('contact-title').addEventListener('click', () => openModal(document.getElementById('contact-modal')));
+
+            document.querySelectorAll('.modal-close-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const modal = e.target.closest('.modal-container');
+                    if (modal) {
+                        closeModal(modal);
+                    }
+                });
+            });
+
+            document.querySelectorAll('.modal-container').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('modal-container')) {
+                        closeModal(e.target);
+                    }
+                });
+            });
+
+            // Initial setup on load
+            setupCanvas();
+            toggleBackground();
+            window.addEventListener('resize', setupCanvas);
+        });
+    </script>
+</body>
+</html>
